@@ -140,95 +140,35 @@ def remove(
     """
     start_time = time.time()
     results: list[dict] = []
-    failed: list[dict] = []
 
-    # Validate inputs exist
-    valid_inputs: list[Path] = []
-    for inp in inputs:
-        if not inp.exists():
-            error = {"input": str(inp), "error": "FILE_NOT_FOUND"}
-            failed.append(error)
-            if not json_output and not quiet:
-                error_console.print(f"[red]✗[/red] File not found: {inp}")
-        else:
-            valid_inputs.append(inp)
+    valid_inputs, failed = _validate_inputs(inputs, json_output, quiet)
 
     if not valid_inputs:
-        _output_error(
-            json_output,
-            quiet,
-            "NO_VALID_INPUTS",
-            "No valid input files provided",
-            failed,
-        )
+        _output_error(json_output, quiet, "NO_VALID_INPUTS", "No valid input files", failed)
         raise typer.Exit(1)
 
-    # Ensure output directory exists
     output.mkdir(parents=True, exist_ok=True)
 
-    # Show loading message
     if not json_output and not quiet:
         console.print("🔄 Loading model...")
 
-    # Process images
     for idx, input_path in enumerate(valid_inputs, 1):
         try:
-            img = Image.open(input_path)
-            result_img = process_image(img, size)
-
-            # Generate output filename
-            out_name = f"{input_path.stem}{suffix}.{format_}"
-            out_path = output / out_name
-
-            # Save with appropriate options
-            save_kwargs: dict = {}
-            if format_ == "webp":
-                save_kwargs["quality"] = quality
-
-            result_img.save(out_path, **save_kwargs)
-
-            results.append(
-                {
-                    "input": str(input_path),
-                    "output": str(out_path),
-                    "status": "ok",
-                }
-            )
+            out_path = _process_single_image(input_path, output, size, format_, suffix, quality)
+            results.append({"input": str(input_path), "output": str(out_path), "status": "ok"})
 
             if quiet:
                 console.print(out_path)
             elif not json_output:
-                total = len(valid_inputs)
-                console.print(
-                    f"  [{idx}/{total}] {input_path.name} → {out_name} [green]✓[/green]"
-                )
+                console.print(f"  [{idx}/{len(valid_inputs)}] {input_path.name} → {out_path.name} [green]✓[/green]")
 
         except Exception as e:
-            failed.append(
-                {
-                    "input": str(input_path),
-                    "error": str(e),
-                }
-            )
+            failed.append({"input": str(input_path), "error": str(e)})
             if not json_output and not quiet:
                 error_console.print(f"  [red]✗[/red] {input_path.name}: {e}")
 
     duration_ms = int((time.time() - start_time) * 1000)
-
-    # Output results
-    if json_output:
-        output_data = {
-            "success": len(failed) == 0,
-            "processed": results,
-            "failed": failed,
-            "duration_ms": duration_ms,
-        }
-        console.print(json.dumps(output_data, indent=2))
-    elif not quiet:
-        duration_s = duration_ms / 1000
-        console.print(
-            f"\n✨ Done! {len(results)} image(s) processed in {duration_s:.1f}s"
-        )
+    _output_results(results, failed, duration_ms, json_output, quiet)
 
     if failed:
         raise typer.Exit(1)
@@ -278,6 +218,80 @@ def _get_device_name(device: str) -> str:
     if device == "cuda":
         return "NVIDIA GPU"
     return "CPU"
+
+
+def _validate_inputs(
+    inputs: list[Path],
+    json_output: bool,
+    quiet: bool,
+) -> tuple[list[Path], list[dict]]:
+    """Validate input files exist.
+
+    Returns:
+        Tuple of (valid_paths, failed_entries)
+    """
+    valid: list[Path] = []
+    failed: list[dict] = []
+
+    for inp in inputs:
+        if not inp.exists():
+            failed.append({"input": str(inp), "error": "FILE_NOT_FOUND"})
+            if not json_output and not quiet:
+                error_console.print(f"[red]✗[/red] File not found: {inp}")
+        else:
+            valid.append(inp)
+
+    return valid, failed
+
+
+def _process_single_image(
+    input_path: Path,
+    output_dir: Path,
+    size: int,
+    format_: str,
+    suffix: str,
+    quality: int,
+) -> Path:
+    """Process one image and save result.
+
+    Returns:
+        Output path of saved image.
+    """
+    img = Image.open(input_path)
+    result_img = process_image(img, size)
+
+    out_name = f"{input_path.stem}{suffix}.{format_}"
+    out_path = output_dir / out_name
+
+    save_kwargs: dict = {}
+    if format_ == "webp":
+        save_kwargs["quality"] = quality
+
+    result_img.save(out_path, **save_kwargs)
+    return out_path
+
+
+def _output_results(
+    results: list[dict],
+    failed: list[dict],
+    duration_ms: int,
+    json_output: bool,
+    quiet: bool,
+) -> None:
+    """Output final results in appropriate format."""
+    if json_output:
+        output_data = {
+            "success": len(failed) == 0,
+            "processed": results,
+            "failed": failed,
+            "duration_ms": duration_ms,
+        }
+        console.print(json.dumps(output_data, indent=2))
+    elif not quiet:
+        duration_s = duration_ms / 1000
+        console.print(
+            f"\n✨ Done! {len(results)} image(s) processed in {duration_s:.1f}s"
+        )
 
 
 def _output_error(
