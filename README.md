@@ -2,7 +2,7 @@
 
 I built this CLI because cutting out images for my web and game projects was getting tedious. My goal: automate background removal via the command line so I can just tell my coding agent *"take these images and remove all backgrounds"* — and it does. Life's too short for manual masking.
 
-Pairs well with [agent skills](https://agentskills.io/home) — whether Claude Code, OpenCode, or other coding agents. Wrap this CLI in a custom skill, and your agent handles batch processing while you focus on building.
+Pairs well with [agent skills](https://agentskills.io/home) — whether Claude Code, OpenCode, or other coding agents. Wrap this CLI in a custom skill, and your agent handles batch processing while you focus on building. The `--json` flag makes output parseable, and skills are portable: write once, use across any compatible agent.
 
 Powered by the [BiRefNet](https://huggingface.co/ZhengPeng7/BiRefNet) model.
 
