@@ -1,6 +1,8 @@
 # BiRefNet
 
-AI-powered background removal CLI tool using the [BiRefNet](https://huggingface.co/ZhengPeng7/BiRefNet) model.
+I built this CLI because cutting out images for my web and game projects was getting tedious. My goal: automate background removal via the command line so I can just tell my coding agent *"take these images and remove all backgrounds"* — and it does. Life's too short for manual masking.
+
+Powered by the [BiRefNet](https://huggingface.co/ZhengPeng7/BiRefNet) model.
 
 ## Features
 
@@ -13,7 +15,7 @@ AI-powered background removal CLI tool using the [BiRefNet](https://huggingface.
 
 ```bash
 # Clone and install with uv
-git clone https://github.com/yourusername/birefnet.git
+git clone https://github.com/dweigend/birefnet.git
 cd birefnet
 uv sync
 
