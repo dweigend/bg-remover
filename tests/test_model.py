@@ -1,7 +1,6 @@
 """Tests for model loading and device detection."""
 
 import torch
-
 from src.birefnet.model import get_device, load_model
 
 

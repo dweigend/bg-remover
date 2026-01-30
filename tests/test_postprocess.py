@@ -2,7 +2,6 @@
 
 import torch
 from PIL import Image
-
 from src.birefnet.postprocess import mask_to_pil, remove_background
 
 

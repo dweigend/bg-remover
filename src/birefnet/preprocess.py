@@ -1,6 +1,5 @@
 """Image preprocessing for BiRefNet."""
 
-import torch
 from PIL import Image
 from torchvision import transforms
 
@@ -26,11 +25,13 @@ def preprocess(image: Image.Image, size: int = DEFAULT_SIZE) -> ProcessedImage:
     if image.mode != "RGB":
         image = image.convert("RGB")
 
-    transform = transforms.Compose([
-        transforms.Resize((size, size)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
-    ])
+    transform = transforms.Compose(
+        [
+            transforms.Resize((size, size)),
+            transforms.ToTensor(),
+            transforms.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+        ]
+    )
 
     tensor = transform(image).unsqueeze(0)  # Add batch dimension
 

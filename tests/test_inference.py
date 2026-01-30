@@ -2,7 +2,6 @@
 
 import torch
 from PIL import Image
-
 from src.birefnet.inference import infer
 from src.birefnet.model import get_device, load_model
 from src.birefnet.preprocess import preprocess

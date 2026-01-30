@@ -13,5 +13,19 @@ wheels/
 *.safetensors
 *.gguf
 
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+
+# Test/Build outputs
+output/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
 # macOS
 .DS_Store

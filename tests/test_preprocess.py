@@ -2,8 +2,7 @@
 
 import torch
 from PIL import Image
-
-from src.birefnet.preprocess import IMAGENET_MEAN, IMAGENET_STD, preprocess
+from src.birefnet.preprocess import preprocess
 
 
 class TestPreprocess:

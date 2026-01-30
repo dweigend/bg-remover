@@ -3,7 +3,6 @@
 from pathlib import Path
 
 from PIL import Image
-
 from src.birefnet import process_image
 
 
@@ -28,9 +27,7 @@ class TestFullPipeline:
         assert has_transparent, "Expected some transparent pixels"
         assert has_opaque, "Expected some opaque pixels"
 
-    def test_save_output(
-        self, sample_image: Image.Image, output_dir: Path
-    ) -> None:
+    def test_save_output(self, sample_image: Image.Image, output_dir: Path) -> None:
         result = process_image(sample_image)
         output_path = output_dir / "bread_nobg.png"
         result.save(output_path)

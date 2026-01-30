@@ -25,9 +25,6 @@ dependencies = [
     "typer>=0.15",
 ]
 
-[project.optional-dependencies]
-dev = ["pytest>=8.0"]
-
 [project.scripts]
 birefnet = "birefnet.cli:app"
 
@@ -41,3 +38,25 @@ packages = ["src/birefnet"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+src = ["src"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "TCH"]
+ignore = ["E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.ty.environment]
+python-version = "3.12"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "ruff>=0.14.14",
+    "ty>=0.0.14",
+]

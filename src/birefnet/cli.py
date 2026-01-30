@@ -4,7 +4,6 @@ LLM-friendly: Supports --json and --quiet modes for coding agents.
 """
 
 import json
-import sys
 import time
 from pathlib import Path
 from typing import Annotated
@@ -188,11 +187,13 @@ def remove(
 
             result_img.save(out_path, **save_kwargs)
 
-            results.append({
-                "input": str(input_path),
-                "output": str(out_path),
-                "status": "ok",
-            })
+            results.append(
+                {
+                    "input": str(input_path),
+                    "output": str(out_path),
+                    "status": "ok",
+                }
+            )
 
             if quiet:
                 console.print(out_path)
@@ -203,10 +204,12 @@ def remove(
                 )
 
         except Exception as e:
-            failed.append({
-                "input": str(input_path),
-                "error": str(e),
-            })
+            failed.append(
+                {
+                    "input": str(input_path),
+                    "error": str(e),
+                }
+            )
             if not json_output and not quiet:
                 error_console.print(f"  [red]✗[/red] {input_path.name}: {e}")
 

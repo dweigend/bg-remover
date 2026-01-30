@@ -5,7 +5,9 @@ import torch
 from .types import ProcessedImage
 
 
-def infer(model: torch.nn.Module, processed: ProcessedImage, device: str) -> torch.Tensor:
+def infer(
+    model: torch.nn.Module, processed: ProcessedImage, device: str
+) -> torch.Tensor:
     """Run forward pass through BiRefNet.
 
     Args:
