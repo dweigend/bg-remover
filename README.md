@@ -31,26 +31,26 @@ uv sync --group dev
 
 ```bash
 # Remove background from a single image
-uv run birefnet remove photo.jpg
+uv run bg-remover remove photo.jpg
 
 # Batch process with output directory
-uv run birefnet remove *.png -o output/
+uv run bg-remover remove *.png -o output/
 
 # Higher resolution processing
-uv run birefnet remove image.jpg -s 2048
+uv run bg-remover remove image.jpg -s 2048
 
 # WebP output with quality setting
-uv run birefnet remove photo.jpg -f webp -q 90
+uv run bg-remover remove photo.jpg -f webp -q 90
 ```
 
 ## CLI Reference
 
-### `birefnet remove`
+### `bg-remover remove`
 
 Remove background from images.
 
 ```
-birefnet remove [OPTIONS] INPUTS...
+bg-remover remove [OPTIONS] INPUTS...
 
 Arguments:
   INPUTS...              Input image(s). Shell globs expanded (e.g. *.png)
@@ -69,25 +69,25 @@ Options:
 
 ```bash
 # Basic usage
-birefnet remove photo.jpg
+bg-remover remove photo.jpg
 # Output: photo_nobg.png
 
 # Custom output directory and format
-birefnet remove image.png -o processed/ -f webp
+bg-remover remove image.png -o processed/ -f webp
 
 # High-res processing
-birefnet remove portrait.jpg -s 2048
+bg-remover remove portrait.jpg -s 2048
 
 # JSON output for automation
-birefnet remove photo.jpg --json
+bg-remover remove photo.jpg --json
 ```
 
-### `birefnet info`
+### `bg-remover info`
 
 Show system and model information.
 
 ```
-birefnet info [--json]
+bg-remover info [--json]
 ```
 
 ### Output Modes
@@ -168,8 +168,8 @@ uv run ruff format src/
 uv run ty check src/
 
 # CLI smoke test
-uv run birefnet --help
-uv run birefnet info --json
+uv run bg-remover --help
+uv run bg-remover info --json
 ```
 
 ## License

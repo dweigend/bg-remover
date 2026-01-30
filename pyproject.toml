@@ -1,7 +1,7 @@
 [project]
-name = "birefnet"
+name = "bg-remover"
 version = "0.1.0"
-description = "BiRefNet Background Removal Pipeline"
+description = "AI Background Removal CLI"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -22,7 +22,7 @@ dependencies = [
 ]
 
 [project.scripts]
-birefnet = "birefnet.cli:app"
+bg-remover = "birefnet.cli:app"
 
 [build-system]
 requires = ["hatchling"]

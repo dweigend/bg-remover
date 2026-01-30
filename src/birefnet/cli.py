@@ -17,7 +17,7 @@ from .model import get_device
 
 app = typer.Typer(
     help=(
-        "🖼️ BiRefNet - AI Background Removal CLI\n\n"
+        "🖼️ bg-remover - AI Background Removal CLI\n\n"
         "[bold]Commands:[/bold]\n"
         "  remove  Remove background from images (outputs RGBA with transparency)\n"
         "  info    Show model/device information\n\n"
@@ -38,7 +38,7 @@ __version__ = "0.1.0"
 def version_callback(value: bool) -> None:
     """Show version and exit."""
     if value:
-        console.print(f"birefnet {__version__}")
+        console.print(f"bg-remover {__version__}")
         raise typer.Exit()
 
 
@@ -55,7 +55,7 @@ def main(
         ),
     ] = False,
 ) -> None:
-    """BiRefNet Background Remover CLI."""
+    """bg-remover Background Remover CLI."""
 
 
 @app.command()
@@ -128,9 +128,9 @@ def remove(
     [bold]Output:[/bold] RGBA PNG/WebP with transparent background
 
     [bold]Examples:[/bold]
-      birefnet remove photo.jpg
-      birefnet remove *.png -o out/ -s 1024
-      birefnet remove img.jpg --json
+      bg-remover remove photo.jpg
+      bg-remover remove *.png -o out/ -s 1024
+      bg-remover remove img.jpg --json
 
     [bold]JSON Schema (--json):[/bold]
       {success: bool, processed: [{input, output, status}], failed: [], duration_ms: int}
@@ -208,7 +208,7 @@ def info(
             f"[bold]Device:[/bold]  {device} ({device_name})\n"
             f"[bold]Version:[/bold] {__version__}"
         )
-        console.print(Panel(info_text, title="BiRefNet Info", border_style="blue"))
+        console.print(Panel(info_text, title="bg-remover Info", border_style="blue"))
 
 
 def _get_device_name(device: str) -> str:
