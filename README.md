@@ -1,4 +1,4 @@
-# BiRefNet
+# bg-remover
 
 I built this CLI because cutting out images for my web and game projects was getting tedious. My goal: automate background removal via the command line so I can just tell my coding agent *"take these images and remove all backgrounds"* — and it does. Life's too short for manual masking.
 
