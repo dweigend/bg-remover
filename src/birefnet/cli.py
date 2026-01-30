@@ -212,7 +212,7 @@ def info(
 
 
 def _get_device_name(device: str) -> str:
-    """Get human-readable device name."""
+    """Map device string to human-readable name."""
     if device == "mps":
         return "Apple Silicon"
     if device == "cuda":
@@ -225,11 +225,7 @@ def _validate_inputs(
     json_output: bool,
     quiet: bool,
 ) -> tuple[list[Path], list[dict]]:
-    """Validate input files exist.
-
-    Returns:
-        Tuple of (valid_paths, failed_entries)
-    """
+    """Filter inputs to existing files. Returns (valid, failed)."""
     valid: list[Path] = []
     failed: list[dict] = []
 
@@ -252,11 +248,7 @@ def _process_single_image(
     suffix: str,
     quality: int,
 ) -> Path:
-    """Process one image and save result.
-
-    Returns:
-        Output path of saved image.
-    """
+    """Remove background from image and save. Returns output path."""
     img = Image.open(input_path)
     result_img = process_image(img, size)
 
@@ -278,7 +270,7 @@ def _output_results(
     json_output: bool,
     quiet: bool,
 ) -> None:
-    """Output final results in appropriate format."""
+    """Print summary (JSON or Rich formatted)."""
     if json_output:
         output_data = {
             "success": len(failed) == 0,
@@ -301,7 +293,7 @@ def _output_error(
     message: str,
     failed: list[dict] | None = None,
 ) -> None:
-    """Output error in appropriate format."""
+    """Print error (JSON or Rich formatted)."""
     if json_output:
         error_data = {
             "success": False,
