@@ -17,8 +17,8 @@ Powered by the [BiRefNet](https://huggingface.co/ZhengPeng7/BiRefNet) model.
 
 ```bash
 # Clone and install with uv
-git clone https://github.com/dweigend/birefnet.git
-cd birefnet
+git clone https://github.com/dweigend/bg-remover.git
+cd bg-remover
 uv sync
 
 # Install development tools
