@@ -156,17 +156,14 @@ Image → preprocess() → infer() → mask_to_pil() → remove_background() →
 # Install dev dependencies
 uv sync --group dev
 
-# Run linter
-uv run ruff check src/ tests/
-uv run ruff format src/ tests/
+# Lint & format
+uv run ruff check src/
+uv run ruff format src/
 
 # Type checking
 uv run ty check src/
 
-# Run tests
-uv run pytest -v
-
-# Test CLI
+# CLI smoke test
 uv run birefnet --help
 uv run birefnet info --json
 ```

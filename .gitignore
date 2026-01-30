@@ -16,10 +16,8 @@ wheels/
 # Tool caches
 .ruff_cache/
 .mypy_cache/
-.pytest_cache/
 
-# Test/Build outputs
-output/
+# Build outputs
 *.log
 
 # IDE

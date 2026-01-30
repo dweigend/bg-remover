@@ -8,19 +8,15 @@ dependencies = [
     "accelerate>=1.12.0",
     "einops>=0.8.2",
     "huggingface-hub>0.25",
-    "ipykernel>=7.1.0",
     "kornia>=0.8.2",
     "numpy<2",
     "opencv-python>=4.11.0.86",
-    "prettytable>=3.17.0",
     "rich>=13.0",
     "scikit-image>=0.26.0",
     "scipy>=1.17.0",
-    "tabulate>=0.9.0",
     "timm>=1.0.24",
     "torch>=2.5.0",
     "torchvision>=0.25.0",
-    "tqdm>=4.67.1",
     "transformers>=4.45.0,<5.0.0",
     "typer>=0.15",
 ]
@@ -34,10 +30,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/birefnet"]
-
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["."]
 
 [tool.ruff]
 target-version = "py312"
@@ -56,7 +48,6 @@ python-version = "3.12"
 
 [dependency-groups]
 dev = [
-    "pytest>=9.0.2",
     "ruff>=0.14.14",
     "ty>=0.0.14",
 ]
